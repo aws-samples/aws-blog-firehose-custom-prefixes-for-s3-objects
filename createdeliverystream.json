@@ -1,0 +1,77 @@
+{
+    "DeliveryStreamName": "KDFS3customPrefixesExample",
+    "DeliveryStreamType": "DirectPut", 
+    "ExtendedS3DestinationConfiguration": {
+        "RoleARN": "arn:aws:iam::account-id:role/firehose_delivery_role",
+        "BucketARN": "arn:aws:s3:::kdfs3customprefixesexample",
+        "Prefix": "fhbase/year=!{timestamp:YYYY}/month=!{timestamp:MM}/day=!{timestamp:dd}/hour=!{timestamp:HH}/",
+        "ErrorOutputPrefix": "fherroroutputbase/!{firehose:random-string}/!{firehose:error-output-type}/!{timestamp:yyyy/MM/dd}/",
+        "BufferingHints": {
+            "SizeInMBs": 1,
+            "IntervalInSeconds": 240
+        },
+        "CompressionFormat": "UNCOMPRESSED",
+        "EncryptionConfiguration": {
+            "KMSEncryptionConfig": {
+                "AWSKMSKeyARN": "arn:aws:kms:us-east-1:account-id:key/e2a1abb2-bd42-4c48-b896-856b52f75212"
+            }
+        },
+        "CloudWatchLoggingOptions": {
+            "Enabled": true,
+            "LogGroupName": "KDFS3customPrefixesExample",
+            "LogStreamName": "S3Delivery"
+        },
+        "ProcessingConfiguration": {
+            "Enabled": true,
+            "Processors": [
+                {
+                    "Type": "Lambda",
+                    "Parameters":  [
+                        {
+                            "ParameterName": "LambdaArn",
+                            "ParameterValue": " arn:aws:lambda:us-east-1:account-id:function:KDFS3CustomPrefixesTransform:$LATEST"
+                        },
+                        {
+                            "ParameterName": "NumberOfRetries",
+                            "ParameterValue": "3"
+                        },
+                        {
+                            "ParameterName": "RoleArn",
+                            "ParameterValue": "arn:aws:iam::account-id:role/firehose_delivery_role"
+                        },
+                        {
+                            "ParameterName": "BufferSizeInMBs",
+                            "ParameterValue": "1"
+                        },
+                        {
+                            "ParameterName": "BufferIntervalInSeconds",
+                            "ParameterValue": "60"
+                        }
+                    ]
+                }
+            ]
+        },
+        "S3BackupMode": "Enabled",
+        "S3BackupConfiguration": {
+            "RoleARN": "arn:aws:iam::account-id:role/firehose_delivery_role",
+            "BucketARN": "arn:aws:s3:::kdfs3customprefixesexample",
+            "Prefix": "fhbackupbase/year=!{timestamp:YYYY}/month=!{timestamp:MM}/day=!{timestamp:dd}/hour=!{timestamp:HH}/",
+            "ErrorOutputPrefix": "fhbackuperroroutputbase/!{firehose:random-string}/!{firehose:error-output-type}/!{timestamp:yyyy/MM/dd}/",
+            "BufferingHints": {
+                "SizeInMBs": 1,
+                "IntervalInSeconds": 240
+            },
+            "CompressionFormat": "GZIP",
+            "EncryptionConfiguration": {
+                "KMSEncryptionConfig": {
+                    "AWSKMSKeyARN": "arn:aws:kms:us-east-1:account-id:key/e2a1abb2-bd42-4c48-b896-856b52f75212"
+                }
+            },
+            "CloudWatchLoggingOptions": {
+                "Enabled": true,
+                "LogGroupName": "KDF-S3customPrefixesBackup-1",
+                "LogStreamName": "S3Delivery"
+            }
+        }
+    }
+}

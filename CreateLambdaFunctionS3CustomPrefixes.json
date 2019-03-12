@@ -1,0 +1,13 @@
+{
+   "FunctionName": "KDFS3CustomPrefixesTransform",
+    "Runtime": "python2.7",
+    "Role": "arn:aws:iam::account-id:role/KDFLambdaBasicRole",
+    "Handler": "lambda_function.lambda_handler",
+    "Description": "An Amazon Kinesis Firehose stream processor that accesses the records in the input, adds multiple AprroximateArrrivalTimestamps and returns them with a processing status. Use this processor for any custom transformation logic.",
+    "Timeout": 3,
+    "MemorySize": 128,
+    "Publish": false,
+    "Tags": {
+        "Purpose": "Firehose Lambda Transform"
+    }
+}
