@@ -12,8 +12,8 @@ while (not done):
     event = {}
     ticker = ['WMT', 'AWD', 'QXZ', 'WER', 'TOI', 'YYT', 'UFG']
     event['ticker_symbol'] = random.choice(ticker)
-    sector = ['RETAIL', 'MANUFACTURING', 'HEALTHCARE', 'FINSERV', 'HOSPITALITY']
-    event['sector'] = random.choice(sector)
+    ticker_sector = {'WMT': 'RETAIL', 'AWD': 'MANUFACTURING', 'QXZ': 'HEALTHCARE', 'WER': 'FINSERV', 'TOI': 'HOSPITALITY', 'YYT': 'REAL ESTATE', 'UFG': 'TRANSPORTATION'}
+    event['sector'] = ticker_sector[event['ticker_symbol']]
     event['price'] = round(random.uniform(1.0, 200.0), 2)
     event['change'] = round(random.uniform(1.0, 25.0), 2)
     now = time.time()
