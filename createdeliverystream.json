@@ -4,7 +4,7 @@
     "ExtendedS3DestinationConfiguration": {
         "RoleARN": "arn:aws:iam::account-id:role/firehose_delivery_role",
         "BucketARN": "arn:aws:s3:::kdfs3customprefixesexample",
-        "Prefix": "fhbase/year=!{timestamp:YYYY}/month=!{timestamp:MM}/day=!{timestamp:dd}/hour=!{timestamp:HH}/",
+        "Prefix": "fhbase/year=!{timestamp:yyyy}/month=!{timestamp:MM}/day=!{timestamp:dd}/hour=!{timestamp:HH}/",
         "ErrorOutputPrefix": "fherroroutputbase/!{firehose:random-string}/!{firehose:error-output-type}/!{timestamp:yyyy/MM/dd}/",
         "BufferingHints": {
             "SizeInMBs": 1,
@@ -29,7 +29,7 @@
                     "Parameters":  [
                         {
                             "ParameterName": "LambdaArn",
-                            "ParameterValue": " arn:aws:lambda:us-east-1:account-id:function:KDFS3CustomPrefixesTransform:$LATEST"
+                            "ParameterValue": "arn:aws:lambda:us-east-1:account-id:function:KDFS3CustomPrefixesTransform:$LATEST"
                         },
                         {
                             "ParameterName": "NumberOfRetries",
